@@ -1,0 +1,26 @@
+[
+  {
+    "id": "demo-clinic",
+    "name": "Praarambh IVF Demo",
+    "shortCode": "PRM",
+    "city": "Indore",
+    "isActive": true,
+    "createdAt": "2026-04-22T11:07:35.114Z"
+  },
+  {
+    "id": "satellite-clinic",
+    "name": "Praarambh Satellite Clinic",
+    "shortCode": "PSC",
+    "city": "Bhopal",
+    "isActive": true,
+    "createdAt": "2026-04-22T11:07:35.115Z"
+  },
+  {
+    "id": "city-care-ivf-cci",
+    "name": "City Care IVF",
+    "shortCode": "CCI",
+    "city": "Jaipur",
+    "isActive": false,
+    "createdAt": "2026-04-22T12:54:22.021Z"
+  }
+]

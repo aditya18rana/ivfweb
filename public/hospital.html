@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hospital Panel</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="appPage" class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Hospital Panel</p>
+          <h2 id="clinicTitle">Patient 360 Panel</h2>
+        </div>
+        <div class="topbar-actions">
+          <div class="header-search">
+            <input
+              id="globalSearch"
+              type="search"
+              placeholder="Search by UHID, mobile number, or patient name"
+              autocomplete="off"
+            />
+            <button id="searchBtn" class="secondary-btn" type="button">Search</button>
+            <div id="searchSuggestions" class="search-suggestions" hidden></div>
+          </div>
+          <nav class="top-nav">
+            <button id="navHome" class="nav-btn active" type="button">Home</button>
+            <button id="navCreate" class="nav-btn" type="button">Create Patient</button>
+            <button id="navPatients" class="nav-btn" type="button">Patients / Updates</button>
+          </nav>
+          <button id="logoutBtn" class="primary-btn logout-btn" type="button">Logout</button>
+        </div>
+      </header>
+
+      <main class="workspace single-column">
+        <section id="homeSection" class="page-section">
+          <div class="card patient-view-card">
+            <div class="card-header">
+              <div>
+                <p class="eyebrow">Patient 360</p>
+                <h3>Selected Patient Details</h3>
+              </div>
+              <span id="homePatientStatus" class="status-pill soft">No patient selected</span>
+            </div>
+            <div id="homePatientView" class="patient-view empty-state">
+              Search and select a patient to display Patient 360 details here.
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <article class="stat-card">
+              <span>Total Patients</span>
+              <strong id="statTotal">0</strong>
+            </article>
+            <article class="stat-card accent">
+              <span>Today's Entries</span>
+              <strong id="statToday">0</strong>
+            </article>
+            <article class="stat-card soft">
+              <span>Follow-up Pending</span>
+              <strong id="statFollowups">0</strong>
+            </article>
+          </div>
+
+          <div class="card home-welcome-card">
+            <div class="card-header">
+              <div>
+                <p class="eyebrow">Dashboard</p>
+                <h3>Clinic Overview</h3>
+              </div>
+            </div>
+            <p class="helper-text">
+              Use the top navigation to create a patient, review follow-ups, and search patient
+              records quickly from the header.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <p class="eyebrow">Today Follow-ups</p>
+                <h3>Reminder Queue</h3>
+              </div>
+            </div>
+            <div id="todayFollowups" class="mini-list"></div>
+          </div>
+        </section>
+
+        <section id="createSection" class="page-section" hidden>
+          <div class="card form-card">
+            <div class="card-header">
+              <div>
+                <p class="eyebrow">Pre-Counselling</p>
+                <h3>Create New Patient</h3>
+              </div>
+              <span class="status-pill">New Registration</span>
+            </div>
+
+            <form id="patientForm" class="panel-form">
+              <div class="form-grid">
+                <label>
+                  Patient Name *
+                  <input type="text" name="patientName" required />
+                </label>
+                <label>
+                  Age
+                  <input type="text" name="age" readonly />
+                </label>
+                <label>
+                  Date of Birth *
+                  <input type="date" name="dob" required />
+                </label>
+                <label>
+                  Husband / Partner Name
+                  <input type="text" name="partnerName" />
+                </label>
+                <label>
+                  Partner Age
+                  <input type="text" name="partnerAge" readonly />
+                </label>
+                <label>
+                  Partner DOB
+                  <input type="date" name="partnerDob" />
+                </label>
+                <label>
+                  Contact Number *
+                  <input type="text" name="mobile" required />
+                </label>
+                <label>
+                  Alternate Contact Number *
+                  <input type="text" name="alternateMobile" required />
+                </label>
+                <label>
+                  Enquiry Source *
+                  <select name="enquirySource" required>
+                    <option value="">Select</option>
+                    <option value="Walk-in">Walk-in</option>
+                    <option value="Online">Online</option>
+                    <option value="Doctor Referral">Doctor Referral</option>
+                    <option value="Newspaper">Newspaper</option>
+                    <option value="Social Media">Social Media</option>
+                    <option value="Existing Patient Reference">Existing Patient Reference</option>
+                  </select>
+                </label>
+                <label>
+                  Address Line *
+                  <input type="text" name="address" required />
+                </label>
+                <label>
+                  State *
+                  <select name="state" required>
+                    <option value="">Select State</option>
+                  </select>
+                </label>
+                <label>
+                  City *
+                  <select name="city" required>
+                    <option value="">Select City</option>
+                  </select>
+                </label>
+                <label>
+                  Marital Status *
+                  <select name="maritalStatus" required>
+                    <option value="">Select</option>
+                    <option value="Married">Married</option>
+                    <option value="Unmarried">Unmarried</option>
+                  </select>
+                </label>
+                <label>
+                  Years Married
+                  <input type="text" name="yearsMarried" />
+                </label>
+                <label>
+                  Marriage Date
+                  <input type="date" name="marriageDate" />
+                </label>
+                <label>
+                  Previous Children
+                  <select name="previousChildren">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </label>
+                <label id="childQtyField" class="hidden">
+                  Number of Children
+                  <select name="childCount">
+                    <option value="">Select</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5+">5+</option>
+                  </select>
+                </label>
+                <label class="span-2">
+                  Child Details
+                  <input type="text" name="childDetails" />
+                </label>
+                <fieldset class="span-2">
+                  <legend>Consultation For</legend>
+                  <div class="checkbox-row">
+                    <label><input type="checkbox" name="consultationFor" value="Gynecological Issue" /> Gynecological Issue</label>
+                    <label><input type="checkbox" name="consultationFor" value="Infertility / IVF" /> Infertility / IVF</label>
+                    <label><input type="checkbox" name="consultationFor" value="ANC" /> ANC</label>
+                    <label><input type="checkbox" name="consultationFor" value="Other" /> Other</label>
+                  </div>
+                </fieldset>
+                <label class="span-2">
+                  Other Consultation
+                  <input type="text" name="consultationOther" />
+                </label>
+                <label class="span-2">
+                  Past History
+                  <textarea name="pastHistory" rows="3"></textarea>
+                </label>
+                <label>
+                  Reference
+                  <input type="text" name="reference" />
+                </label>
+                <label>
+                  Referred By
+                  <input type="text" name="referredBy" />
+                </label>
+                <label class="span-2">
+                  Hospital / Clinic
+                  <input type="text" name="hospitalClinic" />
+                </label>
+                <label class="span-2">
+                  Additional Notes
+                  <textarea name="notes" rows="3"></textarea>
+                </label>
+                <label>
+                  Next Follow-up Date *
+                  <input type="date" name="nextFollowUpDate" required />
+                </label>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="primary-btn">Create Patient</button>
+                <button type="reset" class="secondary-btn">Clear</button>
+              </div>
+              <p id="formMessage" class="helper-text"></p>
+            </form>
+          </div>
+        </section>
+
+        <section id="patientsSection" class="page-section" hidden>
+          <div class="patients-layout">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <p class="eyebrow">Patient Search</p>
+                  <h3>Patient List</h3>
+                </div>
+              </div>
+              <div id="patientList" class="patient-list"></div>
+            </div>
+
+            <div class="right-stack">
+              <div class="card patient-view-card">
+                <div class="card-header">
+                  <div>
+                    <p class="eyebrow">Patient 360</p>
+                    <h3>Selected Patient Details</h3>
+                  </div>
+                  <span id="patientStatus" class="status-pill soft">No patient selected</span>
+                </div>
+                <div id="patientView" class="patient-view empty-state">
+                  Select a patient from the list or use the search bar to display patient details
+                  here.
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <p class="eyebrow">Activity</p>
+                    <h3>Clinic Updates</h3>
+                  </div>
+                </div>
+                <div id="activityList" class="mini-list"></div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <p class="eyebrow">Patient Summary</p>
+                    <h3>Quick Preview</h3>
+                  </div>
+                </div>
+                <div id="patientPreview" class="empty-state small">
+                  Select a patient from the list to view a quick summary here.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <script src="./js/api.js"></script>
+    <script src="./js/hospital-app.js"></script>
+  </body>
+  </html>

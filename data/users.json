@@ -1,0 +1,57 @@
+[
+  {
+    "id": "f2110dc5-6884-42ce-98b3-14802a9f2f92",
+    "clinicId": "platform-admin",
+    "clinicName": "Platform Admin",
+    "username": "owner",
+    "name": "Platform Owner",
+    "role": "super_admin",
+    "isActive": true,
+    "passwordHash": "5a0194bed7791af2f95c9a31e095de22:d7857ffa816781b93c74687592ba5fc6040b7f371391540ab420b2265aaf819a90c23d90e455763876e063cc8cb6f6b5773e6f55da229b9fb2e3c00e6b8834a5",
+    "createdAt": "2026-04-22T12:53:58.056Z"
+  },
+  {
+    "id": "1b4f8077-7d0b-425e-993f-bccd9e50915d",
+    "clinicId": "demo-clinic",
+    "clinicName": "Praarambh IVF Demo",
+    "username": "admin",
+    "name": "Demo Admin",
+    "role": "admin",
+    "isActive": true,
+    "passwordHash": "75e471b637e42cebcbc4dbac4f3e9800:5f782e9205d2de9ed74f22bd4eb173e14897ffd66bd353d351a5f64b13e3f30c8427585980b8f8062910eff29207c61402e2081b608619a0a175d7e9d6daac99",
+    "createdAt": "2026-04-22T10:58:03.614Z"
+  },
+  {
+    "id": "a13e4605-e0e9-4740-b5cc-cd7313acdf04",
+    "clinicId": "satellite-clinic",
+    "clinicName": "Praarambh Satellite Clinic",
+    "username": "satellite",
+    "name": "Satellite Admin",
+    "role": "manager",
+    "isActive": true,
+    "passwordHash": "473a08e781af219a5716c5c91e6e89e7:8a85e6c14bcb10c662855ab9f0319b018c76be8c28404fb63f7e30753a6d62a45bc982bb5510eb2e939f0d468cb1b1303b6cd3774be48266496a4e0d05957b05",
+    "createdAt": "2026-04-22T11:07:59.952Z"
+  },
+  {
+    "id": "a4803de9-c133-4ee8-96a9-2cc1ed74bfcd",
+    "clinicId": "city-care-ivf-cci",
+    "clinicName": "City Care IVF",
+    "username": "citycare_admin",
+    "name": "Clinic Admin",
+    "role": "admin",
+    "isActive": true,
+    "passwordHash": "14174798f67e9f42f6cac1e317a28387:de9ac61ecdd2bc375563239c2b158fa8ccc55ea577c96e88a9c4c9a40baeb0ad22e0597afdd743e79e620009d506a63426d20e48891d38475ec5c44f206aa0fc",
+    "createdAt": "2026-04-22T12:54:22.074Z"
+  },
+  {
+    "id": "99502469-96e0-4d10-9a3b-aafeed573d63",
+    "clinicId": "city-care-ivf-cci",
+    "clinicName": "City Care IVF",
+    "username": "citycare_reception",
+    "name": "Reception One",
+    "role": "reception",
+    "isActive": true,
+    "passwordHash": "0a3b450365353862334403aa2b13fd02:b4cae9a8921f5a2441907952456ca16e58a6ec18b6a3ff9965243fe9a7be1fb4d8636aeb1e2cf4e2b682a733210b23570db8a7fdfa49372191584957ea10f3e4",
+    "createdAt": "2026-04-22T12:54:23.155Z"
+  }
+]

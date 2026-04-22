@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Praarambh IVF Panel</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="loginPage" class="login-shell">
+      <div class="login-card">
+        <div class="brand-block">
+          <p class="eyebrow">Praarambh IVF</p>
+          <h1>Hospital Login Portal</h1>
+          <p class="muted">
+            Use the same login page for the platform owner, hospital admins, and clinic staff.
+          </p>
+          <div class="demo-login-list">
+            <div>
+              <strong>Platform Owner</strong>
+              <span>owner / owner123</span>
+            </div>
+            <div>
+              <strong>Demo Clinic</strong>
+              <span>admin / admin123</span>
+            </div>
+            <div>
+              <strong>Satellite Clinic</strong>
+              <span>satellite / demo123</span>
+            </div>
+          </div>
+        </div>
+
+        <form id="loginForm" class="panel-form compact-form">
+          <div class="login-badge">Secure Staff Login</div>
+          <label>
+            Username
+            <input type="text" name="username" placeholder="Enter username" required />
+          </label>
+          <label>
+            Password
+            <input type="password" name="password" placeholder="Enter password" required />
+          </label>
+          <button type="submit" class="primary-btn">Login</button>
+          <p id="loginError" class="error-text"></p>
+        </form>
+      </div>
+    </div>
+
+    <script src="./js/api.js"></script>
+    <script src="./js/login.js"></script>
+  </body>
+  </html>

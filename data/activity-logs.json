@@ -1,0 +1,74 @@
+[
+  {
+    "id": "246f8aaa-60fd-4092-adfb-887d52516ad4",
+    "createdAt": "2026-04-22T13:16:04.141Z",
+    "clinicId": "city-care-ivf-cci",
+    "user": "Platform Owner",
+    "type": "clinic_status_changed",
+    "message": "City Care IVF marked as inactive"
+  },
+  {
+    "id": "41b6a3ef-d77f-4e2c-bf6d-73e8975a98b2",
+    "createdAt": "2026-04-22T13:16:04.023Z",
+    "clinicId": "city-care-ivf-cci",
+    "user": "Platform Owner",
+    "type": "clinic_status_changed",
+    "message": "City Care IVF marked as active"
+  },
+  {
+    "id": "508ccde2-0403-46b1-a589-4efe7b57d6d4",
+    "createdAt": "2026-04-22T13:15:52.747Z",
+    "clinicId": "city-care-ivf-cci",
+    "user": "Platform Owner",
+    "type": "password_reset",
+    "message": "Password reset for citycare_reception"
+  },
+  {
+    "id": "99b5f734-30f9-4061-99ac-59a3e534f32f",
+    "createdAt": "2026-04-22T13:15:52.680Z",
+    "clinicId": "city-care-ivf-cci",
+    "user": "Platform Owner",
+    "type": "user_status_changed",
+    "message": "citycare_reception marked as active"
+  },
+  {
+    "id": "3172bf15-4779-41a0-9f61-1d7f6b9ed973",
+    "createdAt": "2026-04-22T13:15:38.907Z",
+    "clinicId": "city-care-ivf-cci",
+    "user": "Platform Owner",
+    "type": "password_reset",
+    "message": "Password reset for citycare_reception"
+  },
+  {
+    "id": "74bae9f8-13f2-4486-9aaa-7c898866d2bd",
+    "createdAt": "2026-04-22T13:15:38.846Z",
+    "clinicId": "city-care-ivf-cci",
+    "user": "Platform Owner",
+    "type": "user_status_changed",
+    "message": "citycare_reception marked as inactive"
+  },
+  {
+    "id": "93402c42-fae4-4044-bf6d-73180c403331",
+    "createdAt": "2026-04-22T12:54:23.156Z",
+    "clinicId": "city-care-ivf-cci",
+    "user": "Clinic Admin",
+    "type": "user_created",
+    "message": "Reception One (reception) login created for City Care IVF"
+  },
+  {
+    "id": "17042f0e-2ede-48b7-9147-9464e33f641c",
+    "createdAt": "2026-04-22T12:54:22.075Z",
+    "clinicId": "city-care-ivf-cci",
+    "user": "Platform Owner",
+    "type": "clinic_created",
+    "message": "City Care IVF onboarded with admin citycare_admin"
+  },
+  {
+    "id": "1c534be6-4032-4402-9bf2-b7f97d69bd66",
+    "createdAt": "2026-04-22T11:10:14.263Z",
+    "clinicId": "demo-clinic",
+    "user": "Demo Admin",
+    "type": "patient_created",
+    "message": "Live Demo Patient created with PRM-20260422-0002"
+  }
+]

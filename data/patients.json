@@ -1,0 +1,75 @@
+[
+  {
+    "id": "5470c798-c645-47d5-b297-01631c361f5a",
+    "clinicId": "demo-clinic",
+    "uhid": "UHID-20260422-0001",
+    "patientName": "Sonia Sharma",
+    "age": "31",
+    "dob": "",
+    "partnerName": "Amit Sharma",
+    "partnerAge": "",
+    "partnerDob": "",
+    "mobile": "9876543210",
+    "address": "",
+    "maritalStatus": "Married",
+    "yearsMarried": "",
+    "marriageDate": "",
+    "previousChildren": "",
+    "childGender": "",
+    "childDetails": "",
+    "consultationFor": [
+      "Infertility / IVF"
+    ],
+    "consultationOther": "",
+    "pastHistory": "",
+    "reference": "",
+    "referredBy": "",
+    "hospitalClinic": "",
+    "notes": "First walk-in enquiry",
+    "nextFollowUpDate": "2026-04-26",
+    "status": "Follow-up Pending",
+    "createdAt": "2026-04-22T10:58:31.525Z",
+    "followUps": [
+      {
+        "id": "d6c35369-0e84-4659-86f6-33fe719a7765",
+        "date": "2026-04-26",
+        "note": "Reminder sent for follow-up visit",
+        "mode": "WhatsApp",
+        "createdAt": "2026-04-22T10:58:39.436Z",
+        "createdBy": "Demo Admin"
+      }
+    ]
+  },
+  {
+    "id": "3160667c-c510-437c-a5b8-369a9b7fe3d6",
+    "clinicId": "demo-clinic",
+    "uhid": "PRM-20260422-0002",
+    "patientName": "Live Demo Patient",
+    "age": "",
+    "dob": "",
+    "partnerName": "",
+    "partnerAge": "",
+    "partnerDob": "",
+    "mobile": "9998887776",
+    "address": "",
+    "maritalStatus": "",
+    "yearsMarried": "",
+    "marriageDate": "",
+    "previousChildren": "",
+    "childGender": "",
+    "childDetails": "",
+    "consultationFor": [
+      "Infertility / IVF"
+    ],
+    "consultationOther": "",
+    "pastHistory": "",
+    "reference": "",
+    "referredBy": "",
+    "hospitalClinic": "",
+    "notes": "",
+    "nextFollowUpDate": "2026-04-22",
+    "status": "New Registration",
+    "createdAt": "2026-04-22T11:10:14.262Z",
+    "followUps": []
+  }
+]

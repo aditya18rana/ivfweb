@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Owner Console</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Platform Control</p>
+          <h2 id="clinicTitle">Owner Admin Console</h2>
+        </div>
+        <div class="topbar-actions">
+          <button id="refreshOwnerBtn" class="secondary-btn" type="button">Refresh</button>
+          <button id="logoutBtn" class="primary-btn logout-btn" type="button">Logout</button>
+        </div>
+      </header>
+
+      <main class="workspace single-column">
+        <section class="page-section">
+          <div class="stats-grid">
+            <article class="stat-card">
+              <span>Total Clinics</span>
+              <strong id="adminClinicCount">0</strong>
+            </article>
+            <article class="stat-card accent">
+              <span>Total Login Users</span>
+              <strong id="adminUserCount">0</strong>
+            </article>
+            <article class="stat-card soft">
+              <span>Total Patients</span>
+              <strong id="adminPatientCount">0</strong>
+            </article>
+          </div>
+
+          <div class="patients-layout">
+            <div class="right-stack">
+              <div id="clinicOnboardCard" class="card">
+                <div class="card-header">
+                  <div>
+                    <p class="eyebrow">Super Admin</p>
+                    <h3>Onboard New Hospital</h3>
+                  </div>
+                </div>
+                <form id="clinicForm" class="panel-form">
+                  <label>
+                    Hospital / Clinic Name
+                    <input type="text" name="name" required />
+                  </label>
+                  <label>
+                    Short Code
+                    <input type="text" name="shortCode" maxlength="5" required />
+                  </label>
+                  <label>
+                    City
+                    <input type="text" name="city" required />
+                  </label>
+                  <label>
+                    Admin Name
+                    <input type="text" name="adminName" required />
+                  </label>
+                  <label>
+                    Admin Username
+                    <input type="text" name="username" required />
+                  </label>
+                  <label>
+                    Admin Password
+                    <input type="text" name="password" required />
+                  </label>
+                  <button type="submit" class="primary-btn">Create Hospital Login</button>
+                  <p id="clinicFormMessage" class="helper-text"></p>
+                </form>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <p class="eyebrow">User Access</p>
+                    <h3>Create Employee Login</h3>
+                  </div>
+                </div>
+                <form id="userForm" class="panel-form">
+                  <label id="userClinicLabel">
+                    Hospital / Clinic
+                    <select name="clinicId" id="userClinicSelect">
+                      <option value="">Select Clinic</option>
+                    </select>
+                  </label>
+                  <label>
+                    Employee Name
+                    <input type="text" name="name" required />
+                  </label>
+                  <label>
+                    Username
+                    <input type="text" name="username" required />
+                  </label>
+                  <label>
+                    Role
+                    <select name="role" required>
+                      <option value="staff">Staff</option>
+                      <option value="reception">Reception</option>
+                      <option value="doctor">Doctor</option>
+                      <option value="manager">Manager</option>
+                      <option value="admin">Admin</option>
+                    </select>
+                  </label>
+                  <label>
+                    Password
+                    <input type="text" name="password" required />
+                  </label>
+                  <button type="submit" class="primary-btn">Create Employee Login</button>
+                  <p id="userFormMessage" class="helper-text"></p>
+                </form>
+              </div>
+            </div>
+
+            <div class="right-stack">
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <p class="eyebrow">Hospitals</p>
+                    <h3>Onboarded Clinics</h3>
+                  </div>
+                </div>
+                <div id="clinicList" class="mini-list"></div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <p class="eyebrow">Login Users</p>
+                    <h3>Employee Access List</h3>
+                  </div>
+                </div>
+                <div id="userList" class="mini-list"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./js/api.js"></script>
+    <script src="./js/owner-app.js"></script>
+  </body>
+  </html>

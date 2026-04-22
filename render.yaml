@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: ivfweb-panel
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: DATA_PROVIDER
+        value: postgres
+      - key: DATABASE_URL
+        sync: false
