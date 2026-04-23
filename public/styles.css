@@ -199,6 +199,11 @@ button:hover {
   margin: 0;
 }
 
+.topbar h2,
+.topbar .eyebrow {
+  color: #ffffff;
+}
+
 .topbar-actions {
   display: flex;
   align-items: center;
@@ -583,6 +588,14 @@ legend {
   width: 88px;
   height: 88px;
   display: block;
+}
+
+.avatar-image {
+  width: 94px;
+  height: 94px;
+  object-fit: cover;
+  border-radius: 999px;
+  box-shadow: 0 10px 22px rgba(43, 105, 128, 0.12);
 }
 
 .his-avatar-frame.partner {

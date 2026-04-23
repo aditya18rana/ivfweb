@@ -105,19 +105,12 @@ const INDIA_STATE_CITY_MAP = {
 function getProfileCutout(type) {
   if (type === "partner") {
     return `
-      <svg class="avatar-cutout" viewBox="0 0 120 120" aria-hidden="true">
-        <circle cx="60" cy="34" r="20" fill="#4f7f96"></circle>
-        <path d="M32 102c4-22 17-34 28-34s24 12 28 34" fill="#4f7f96"></path>
-        <path d="M44 61h32v10H44z" fill="#7fa0b1"></path>
-      </svg>
+      <img class="avatar-cutout avatar-image" src="./images/male.png" alt="Partner avatar" />
     `;
   }
 
   return `
-    <svg class="avatar-cutout" viewBox="0 0 120 120" aria-hidden="true">
-      <circle cx="60" cy="31" r="18" fill="#5c8da6"></circle>
-      <path d="M38 103c5-18 14-30 22-34l-8-8-6 5-6-9c7-9 15-13 26-13 10 0 19 4 26 13l-6 9-6-5-8 8c8 4 17 16 22 34" fill="#5c8da6"></path>
-    </svg>
+    <img class="avatar-cutout avatar-image" src="./images/female.png" alt="Patient avatar" />
   `;
 }
 
@@ -328,6 +321,31 @@ function renderPatientPreview() {
   `;
 }
 
+function buildWhatsappMessage(patient) {
+  const clinicName = state.user?.clinicName || "Praarambh IVF";
+  const patientName = patient.patientName || "Patient";
+  const followUpDate = patient.nextFollowUpDate || "your scheduled date";
+  const doctorName = patient.doctorName || "our consulting doctor";
+
+  return [
+    `Dear ${patientName},`,
+    `This is a follow-up reminder from ${clinicName}.`,
+    `Your next follow-up date is ${followUpDate}.`,
+    `Consulting doctor: ${doctorName}.`,
+    `Please contact the clinic if you need to reschedule.`,
+    `Thank you.`
+  ].join("\n");
+}
+
+function buildWhatsappLink(patient) {
+  const mobile = String(patient.mobile || "").replace(/\D/g, "");
+  if (!mobile) {
+    return "#";
+  }
+  const text = buildWhatsappMessage(patient);
+  return `https://wa.me/91${encodeURIComponent(mobile)}?text=${encodeURIComponent(text)}`;
+}
+
 function buildEmptyPatientViewMarkup() {
   return `
     <div class="his-toolbar">
@@ -486,7 +504,10 @@ function buildPatientViewMarkup(patient) {
           <div class="his-chip-row">
             <span class="his-chip">Visit Category: B2C</span>
             <span class="his-chip">Referral: ${escapeHtml(patient.referredBy || "Direct Walk-in")}</span>
-            <a class="his-chip whatsapp-chip" href="https://wa.me/91${encodeURIComponent(String(patient.mobile || "").replace(/\D/g, ""))}" target="_blank" rel="noreferrer">WhatsApp</a>
+            <a class="his-chip whatsapp-chip" href="${buildWhatsappLink(patient)}" target="_blank" rel="noreferrer">Open WhatsApp</a>
+            <button type="button" class="his-chip whatsapp-chip whatsapp-copy-btn" data-copy-message="${escapeHtml(buildWhatsappMessage(patient))}">
+              Copy Message
+            </button>
           </div>
         </div>
 
@@ -565,6 +586,21 @@ function attachFollowUpHandlers(patientId) {
         setActiveView("home");
       } catch (error) {
         alert(error.message);
+      }
+    });
+  });
+
+  document.querySelectorAll(".whatsapp-copy-btn").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const message = button.dataset.copyMessage || "";
+      try {
+        await navigator.clipboard.writeText(message);
+        button.textContent = "Message Copied";
+        window.setTimeout(() => {
+          button.textContent = "Copy Message";
+        }, 1600);
+      } catch (error) {
+        alert("Could not copy the message automatically.");
       }
     });
   });
