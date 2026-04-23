@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS patients (
   mobile TEXT,
   alternate_mobile TEXT,
   enquiry_source TEXT,
+  doctor_name TEXT,
   address TEXT,
   state TEXT,
   city TEXT,

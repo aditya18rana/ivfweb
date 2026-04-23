@@ -61,29 +61,70 @@
               <span>Follow-up Pending</span>
               <strong id="statFollowups">0</strong>
             </article>
+            <article class="stat-card">
+              <span>Today's Follow-ups</span>
+              <strong id="statTodayQueue">0</strong>
+            </article>
           </div>
 
-          <div class="card home-welcome-card">
-            <div class="card-header">
-              <div>
-                <p class="eyebrow">Dashboard</p>
-                <h3>Clinic Overview</h3>
+          <div class="hero-strip home-hero">
+            <div class="hero-main">
+              <p class="eyebrow">Dashboard</p>
+              <h3 id="homeGreeting">Clinic Overview</h3>
+              <p id="homeSummaryText" class="helper-text">
+                Use the top navigation to create a patient, review follow-ups, and search patient
+                records quickly from the header.
+              </p>
+              <div class="hero-tags">
+                <span id="heroFocusTag">Follow-up desk ready</span>
+                <span id="heroQueueTag">No urgent queue</span>
+                <span id="heroDoctorTag">Doctor not selected</span>
               </div>
             </div>
-            <p class="helper-text">
-              Use the top navigation to create a patient, review follow-ups, and search patient
-              records quickly from the header.
-            </p>
+            <div class="hero-side">
+              <div class="hero-stat">
+                <span>Next Priority</span>
+                <strong id="heroPriorityValue">No patient selected</strong>
+              </div>
+              <div class="quick-actions">
+                <button id="homeCreateAction" class="primary-btn" type="button">Register Patient</button>
+                <button id="homePatientsAction" class="secondary-btn" type="button">Open Patient List</button>
+              </div>
+            </div>
           </div>
 
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <p class="eyebrow">Today Follow-ups</p>
-                <h3>Reminder Queue</h3>
+          <div class="home-grid">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <p class="eyebrow">New Registrations</p>
+                  <h3>Recent Patients</h3>
+                </div>
+              </div>
+              <div id="homeRecentPatients" class="mini-list"></div>
+            </div>
+
+            <div class="right-stack">
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <p class="eyebrow">Today Follow-ups</p>
+                    <h3>Reminder Queue</h3>
+                  </div>
+                </div>
+                <div id="todayFollowups" class="mini-list"></div>
+              </div>
+
+              <div class="card home-welcome-card">
+                <div class="card-header">
+                  <div>
+                    <p class="eyebrow">Live Activity</p>
+                    <h3>Front Desk Updates</h3>
+                  </div>
+                </div>
+                <div id="homeActivityList" class="mini-list"></div>
               </div>
             </div>
-            <div id="todayFollowups" class="mini-list"></div>
           </div>
         </section>
 
@@ -142,6 +183,10 @@
                     <option value="Social Media">Social Media</option>
                     <option value="Existing Patient Reference">Existing Patient Reference</option>
                   </select>
+                </label>
+                <label>
+                  Consulting Doctor
+                  <input type="text" name="doctorName" placeholder="Dr. Name" />
                 </label>
                 <label>
                   Address Line *

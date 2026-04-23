@@ -23,8 +23,19 @@ const searchSuggestions = document.getElementById("searchSuggestions");
 const statTotal = document.getElementById("statTotal");
 const statToday = document.getElementById("statToday");
 const statFollowups = document.getElementById("statFollowups");
+const statTodayQueue = document.getElementById("statTodayQueue");
 const todayFollowups = document.getElementById("todayFollowups");
 const activityList = document.getElementById("activityList");
+const homeActivityList = document.getElementById("homeActivityList");
+const homeRecentPatients = document.getElementById("homeRecentPatients");
+const homeGreeting = document.getElementById("homeGreeting");
+const homeSummaryText = document.getElementById("homeSummaryText");
+const heroFocusTag = document.getElementById("heroFocusTag");
+const heroQueueTag = document.getElementById("heroQueueTag");
+const heroDoctorTag = document.getElementById("heroDoctorTag");
+const heroPriorityValue = document.getElementById("heroPriorityValue");
+const homeCreateAction = document.getElementById("homeCreateAction");
+const homePatientsAction = document.getElementById("homePatientsAction");
 const navButtons = {
   home: document.getElementById("navHome"),
   create: document.getElementById("navCreate"),
@@ -159,18 +170,51 @@ function renderDashboard() {
   statTotal.textContent = dashboard?.totalPatients ?? 0;
   statToday.textContent = dashboard?.todayPatients ?? 0;
   statFollowups.textContent = dashboard?.followUpPending ?? 0;
+  statTodayQueue.textContent = dashboard?.todayFollowUps?.length ?? 0;
+  homeGreeting.textContent = `${state.user?.clinicName || "Clinic"} Front Desk Overview`;
+  homeSummaryText.textContent = `Track registrations, follow-ups, and today's front desk movement from one screen. Search any patient above to open Patient 360 instantly.`;
+  heroFocusTag.textContent = `${dashboard?.todayPatients ?? 0} new registrations today`;
+  heroQueueTag.textContent = `${dashboard?.followUpPending ?? 0} total follow-ups pending`;
+  heroDoctorTag.textContent = state.selectedPatient?.doctorName
+    ? `Doctor: ${state.selectedPatient.doctorName}`
+    : "Doctor not selected yet";
+  heroPriorityValue.textContent = state.selectedPatient?.patientName
+    ? `${state.selectedPatient.patientName} | ${state.selectedPatient.uhid}`
+    : dashboard?.todayFollowUps?.[0]?.patientName || "No patient selected";
   todayFollowups.innerHTML = (dashboard?.todayFollowUps || []).length
     ? dashboard.todayFollowUps
         .map(
           (patient) => `
             <button class="mini-row" data-open-patient="${patient.id}">
-              <strong>${escapeHtml(patient.patientName)}</strong>
+              <div>
+                <strong>${escapeHtml(patient.patientName)}</strong>
+                <span>${escapeHtml(patient.doctorName || "Doctor not added")}</span>
+              </div>
               <span>${escapeHtml(patient.nextFollowUpDate || "-")}</span>
             </button>
           `
         )
         .join("")
     : `<div class="empty-state small">No follow-ups scheduled for today.</div>`;
+
+  homeRecentPatients.innerHTML = (dashboard?.recentPatients || []).length
+    ? dashboard.recentPatients
+        .map(
+          (patient) => `
+            <button class="mini-row patient-mini-card" data-open-patient="${patient.id}">
+              <div>
+                <strong>${escapeHtml(patient.patientName)}</strong>
+                <span>${escapeHtml(patient.uhid)}</span>
+              </div>
+              <div class="patient-row-meta">
+                <span>${escapeHtml(patient.doctorName || "Doctor pending")}</span>
+                <span>${formatDate(patient.createdAt)}</span>
+              </div>
+            </button>
+          `
+        )
+        .join("")
+    : `<div class="empty-state small">Recent patients will appear here.</div>`;
 
   activityList.innerHTML = state.activity.length
     ? state.activity
@@ -184,6 +228,23 @@ function renderDashboard() {
         )
         .join("")
     : `<div class="empty-state small">No recent clinic activity available.</div>`;
+
+  homeActivityList.innerHTML = state.activity.length
+    ? state.activity
+        .slice(0, 4)
+        .map(
+          (item) => `
+            <div class="mini-row static">
+              <div>
+                <strong>${escapeHtml(item.message)}</strong>
+                <span>${escapeHtml(item.user || "System")}</span>
+              </div>
+              <span>${formatDate(item.createdAt)}</span>
+            </div>
+          `
+        )
+        .join("")
+    : `<div class="empty-state small">Front desk activity will appear here.</div>`;
 
   document.querySelectorAll("[data-open-patient]").forEach((button) => {
     button.addEventListener("click", async () => {
@@ -237,6 +298,7 @@ function renderPatientPreview() {
       <strong>${escapeHtml(patient.patientName)}</strong>
       <p>${escapeHtml(patient.uhid)}</p>
       <p>${escapeHtml(patient.mobile || "-")}</p>
+      <p>${escapeHtml(patient.doctorName || "Doctor not added")}</p>
       <p>${escapeHtml(patient.nextFollowUpDate || "No follow-up date")}</p>
     </div>
   `;
@@ -295,7 +357,7 @@ function buildPatientViewMarkup(patient) {
             <div><span>City</span><strong>${escapeHtml(patient.city || "-")}</strong></div>
             <div><span>Account Date</span><strong>${formatDate(patient.createdAt)}</strong></div>
             <div><span>Account Status</span><strong>Active</strong></div>
-            <div><span>Doctor</span><strong>Dr. Yogita Parihar</strong></div>
+            <div><span>Doctor</span><strong>${escapeHtml(patient.doctorName || "Not assigned")}</strong></div>
             <div><span>Visit Purpose</span><strong>${escapeHtml((patient.consultationFor || []).join(", ") || patient.consultationOther || "Consultation")}</strong></div>
             <div><span>File Type</span><strong>General</strong></div>
           </div>
@@ -393,6 +455,8 @@ function renderPatientView() {
   if (!patient) {
     patientStatus.textContent = "No patient selected";
     homePatientStatus.textContent = "No patient selected";
+    heroDoctorTag.textContent = "Doctor not selected yet";
+    heroPriorityValue.textContent = state.dashboard?.todayFollowUps?.[0]?.patientName || "No patient selected";
     patientView.className = "patient-view empty-state";
     patientView.textContent = emptyMessage;
     homePatientView.className = "patient-view empty-state";
@@ -403,6 +467,10 @@ function renderPatientView() {
   const markup = buildPatientViewMarkup(patient);
   patientStatus.textContent = patient.status || "Active";
   homePatientStatus.textContent = patient.status || "Active";
+  heroDoctorTag.textContent = patient.doctorName
+    ? `Doctor: ${patient.doctorName}`
+    : "Doctor not selected yet";
+  heroPriorityValue.textContent = `${patient.patientName} | ${patient.uhid}`;
   patientView.className = "patient-view his-patient-view";
   patientView.innerHTML = markup;
   homePatientView.className = "patient-view his-patient-view";
@@ -554,7 +622,12 @@ patientDobInput?.addEventListener("input", syncAgeFields);
 partnerDobInput?.addEventListener("change", syncAgeFields);
 partnerDobInput?.addEventListener("input", syncAgeFields);
 previousChildrenInput?.addEventListener("change", syncChildFields);
-stateInput?.addEventListener("change", syncCityOptions);
+  stateInput?.addEventListener("change", syncCityOptions);
+homeCreateAction?.addEventListener("click", () => setActiveView("create"));
+homePatientsAction?.addEventListener("click", async () => {
+  setActiveView("patients");
+  await loadPatients(globalSearch.value.trim(), { autoSelectFirst: false });
+});
 
 document.addEventListener("click", (event) => {
   if (!event.target.closest(".header-search")) {
