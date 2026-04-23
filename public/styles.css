@@ -557,6 +557,11 @@ legend {
   border-color: #33c9e8;
 }
 
+.placeholder-frame {
+  opacity: 0.72;
+  background: linear-gradient(135deg, #eef5fb, #fafcff);
+}
+
 .his-avatar-card strong,
 .his-avatar-card small {
   display: block;
@@ -657,8 +662,29 @@ legend {
   font-size: 0.82rem;
 }
 
+.empty-patient-view .his-red-btn:disabled,
+.empty-patient-view .his-action-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.empty-patient-view button:hover {
+  transform: none;
+}
+
 .his-followup-box {
   border-radius: 6px;
+}
+
+.empty-followup-note {
+  min-height: 76px;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  border: 1px dashed var(--line);
+  border-radius: 14px;
+  padding: 1rem;
+  text-align: center;
 }
 
 .his-timeline-panel {

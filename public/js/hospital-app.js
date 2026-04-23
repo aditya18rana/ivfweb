@@ -304,6 +304,103 @@ function renderPatientPreview() {
   `;
 }
 
+function buildEmptyPatientViewMarkup() {
+  return `
+    <div class="his-toolbar">
+      <div class="his-tabs">
+        <span class="his-tab active">Patient 360</span>
+        <span class="his-tab">History</span>
+      </div>
+      <div class="his-searchline">
+        <span class="his-uhid-label">UHID</span>
+        <span class="his-uhid-value">Select a patient</span>
+        <button type="button" class="his-action-btn" disabled>Advance</button>
+        <button type="button" class="his-action-btn light" disabled>Refresh</button>
+      </div>
+    </div>
+
+    <div class="his-layout">
+      <section class="his-main">
+        <div class="his-profile-strip">
+          <div class="his-avatar-card">
+            <div class="his-avatar-frame placeholder-frame">
+              <span>PT</span>
+            </div>
+            <strong>Patient Name</strong>
+            <small>(Age: --)</small>
+          </div>
+          <div class="his-avatar-card">
+            <div class="his-avatar-frame partner placeholder-frame">
+              <span>PR</span>
+            </div>
+            <strong>Partner Detail</strong>
+            <small>(Age: --)</small>
+          </div>
+        </div>
+
+        <div class="his-summary">
+          <div class="his-summary-head">
+            <div>
+              <h3>No Patient Selected</h3>
+              <p>UHID : Select a patient from search</p>
+            </div>
+            <span class="his-consulted-pill">Waiting</span>
+          </div>
+
+          <div class="his-meta-grid">
+            <div><span>Old Patient</span><strong>--</strong></div>
+            <div><span>Clinic</span><strong>${escapeHtml(state.user?.clinicName || "-")}</strong></div>
+            <div><span>Contact</span><strong>--</strong></div>
+            <div><span>Alternate Contact</span><strong>--</strong></div>
+            <div><span>Enquiry Source</span><strong>--</strong></div>
+            <div><span>State</span><strong>--</strong></div>
+            <div><span>City</span><strong>--</strong></div>
+            <div><span>Account Date</span><strong>--</strong></div>
+            <div><span>Account Status</span><strong>--</strong></div>
+            <div><span>Doctor</span><strong>--</strong></div>
+            <div><span>Visit Purpose</span><strong>--</strong></div>
+            <div><span>File Type</span><strong>General</strong></div>
+          </div>
+
+          <div class="his-chip-row">
+            <span class="his-chip">Visit Category: B2C</span>
+            <span class="his-chip">Referral: --</span>
+            <span class="his-chip whatsapp-chip">WhatsApp</span>
+          </div>
+        </div>
+
+        <div class="his-bottom-actions">
+          <button type="button" class="his-red-btn" disabled>View Vitals For Patient</button>
+          <button type="button" class="his-red-btn" disabled>USG Results For Patient</button>
+          <button type="button" class="his-red-btn" disabled>Pre Consult Form</button>
+          <button type="button" class="his-red-btn" disabled>Print Summary</button>
+          <button type="button" class="his-red-btn" disabled>Update Viral Markers</button>
+        </div>
+
+        <section class="followup-section his-followup-box">
+          <div class="followup-header">
+            <h4>Follow-up Timeline</h4>
+          </div>
+          <div class="empty-followup-note">
+            Search and select a patient to view Patient 360 details here.
+          </div>
+        </section>
+      </section>
+
+      <aside class="his-timeline-panel">
+        <h4>Timeline</h4>
+        <div class="timeline his-timeline">
+          <div class="timeline-item his-time-item">
+            <strong>Waiting</strong>
+            <span>Patient Search</span>
+            <p>Select a patient from the header search or patient list.</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  `;
+}
+
 function buildPatientViewMarkup(patient) {
   return `
     <div class="his-toolbar">
@@ -451,16 +548,15 @@ function attachFollowUpHandlers(patientId) {
 
 function renderPatientView() {
   const patient = state.selectedPatient;
-  const emptyMessage = "Search and select a patient to view Patient 360 details here.";
   if (!patient) {
     patientStatus.textContent = "No patient selected";
     homePatientStatus.textContent = "No patient selected";
     heroDoctorTag.textContent = "Doctor not selected yet";
     heroPriorityValue.textContent = state.dashboard?.todayFollowUps?.[0]?.patientName || "No patient selected";
-    patientView.className = "patient-view empty-state";
-    patientView.textContent = emptyMessage;
-    homePatientView.className = "patient-view empty-state";
-    homePatientView.textContent = emptyMessage;
+    patientView.className = "patient-view his-patient-view empty-patient-view";
+    patientView.innerHTML = buildEmptyPatientViewMarkup();
+    homePatientView.className = "patient-view his-patient-view empty-patient-view";
+    homePatientView.innerHTML = buildEmptyPatientViewMarkup();
     return;
   }
 
