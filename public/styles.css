@@ -7,7 +7,7 @@
   --primary: #bc2946;
   --primary-deep: #8e1e34;
   --accent: #10b4ae;
-  --line: #dbe1ef;
+  --line: #a8b0c3;
   --shadow: 0 18px 40px rgba(26, 35, 64, 0.08);
 }
 
@@ -187,7 +187,7 @@ button:hover {
   gap: 1rem;
   padding: 1.1rem 1.6rem;
   border-bottom: 1px solid #dfe3ea;
-  background: #ffb2d6;
+  background: #0a0a0a;
   backdrop-filter: blur(12px);
   position: sticky;
   top: 0;
