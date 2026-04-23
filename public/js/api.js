@@ -28,11 +28,15 @@ function formatDate(value) {
   }
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) {
+    const plainDateMatch = String(value).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (plainDateMatch) {
+      return `${plainDateMatch[3]}/${plainDateMatch[2]}/${plainDateMatch[1]}`;
+    }
     return value;
   }
   return date.toLocaleDateString("en-IN", {
     day: "2-digit",
-    month: "short",
+    month: "2-digit",
     year: "numeric"
   });
 }

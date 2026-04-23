@@ -324,7 +324,7 @@ function renderPatientPreview() {
 function buildWhatsappMessage(patient) {
   const clinicName = state.user?.clinicName || "Praarambh IVF";
   const patientName = patient.patientName || "Patient";
-  const followUpDate = patient.nextFollowUpDate || "your scheduled date";
+  const followUpDate = patient.nextFollowUpDate ? formatDate(patient.nextFollowUpDate) : "your scheduled date";
   const doctorName = patient.doctorName || "our consulting doctor";
 
   return [
@@ -444,6 +444,21 @@ function buildEmptyPatientViewMarkup() {
 }
 
 function buildPatientViewMarkup(patient) {
+  const timelineEntries = [
+    {
+      kind: "created",
+      date: formatDate(patient.createdAt),
+      mode: "Created",
+      note: "Patient record created."
+    },
+    ...((patient.followUps || []).map((item) => ({
+      kind: "followup",
+      date: formatDate(item.date),
+      mode: item.mode,
+      note: item.note
+    })))
+  ];
+
   return `
     <div class="his-toolbar">
       <div class="his-tabs">
@@ -538,33 +553,18 @@ function buildPatientViewMarkup(patient) {
 
       <aside class="his-timeline-panel">
         <h4>Timeline</h4>
-        <div class="timeline his-timeline">
-          ${
-            (patient.followUps || []).length
-              ? patient.followUps
-                  .map(
-                    (item) => `
-                      <div class="timeline-item his-time-item">
-                        <strong>${escapeHtml(item.date)}</strong>
-                        <span>${escapeHtml(item.mode)}</span>
-                        <p>${escapeHtml(item.note)}</p>
-                      </div>
-                    `
-                  )
-                  .join("")
-              : `
-                <div class="timeline-item his-time-item">
-                  <strong>${formatDate(patient.createdAt)}</strong>
-                  <span>Created</span>
-                  <p>Patient record created.</p>
-                </div>
-                <div class="timeline-item his-time-item">
-                  <strong>${escapeHtml(patient.nextFollowUpDate || formatDate(patient.createdAt))}</strong>
-                  <span>Follow-up</span>
-                  <p>${escapeHtml(patient.notes || "Next follow-up pending.")}</p>
+        <div class="timeline his-timeline timeline-scroll-list">
+          ${timelineEntries
+            .map(
+              (item) => `
+                <div class="timeline-item his-time-item ${item.kind === "created" ? "timeline-created" : ""}">
+                  <strong>${escapeHtml(item.date)}</strong>
+                  <span>${escapeHtml(item.mode)}</span>
+                  <p>${escapeHtml(item.note)}</p>
                 </div>
               `
-          }
+            )
+            .join("")}
         </div>
       </aside>
     </div>

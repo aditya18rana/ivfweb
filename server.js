@@ -210,12 +210,14 @@ async function generateUhid(clinicId) {
   const clinic = await storage.getClinic(clinicId);
   const patients = await storage.getPatientsByClinic(clinicId);
   const prefix = clinic?.shortCode || "UHID";
-  const now = new Date();
-  const datePart = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, "0")}${String(
-    now.getDate()
-  ).padStart(2, "0")}`;
-  const todayCount = patients.filter((patient) => patient.uhid.includes(datePart)).length + 1;
-  return `${prefix}-${datePart}-${String(todayCount).padStart(4, "0")}`;
+  const maxSequence = patients.reduce((currentMax, patient) => {
+    const match = String(patient.uhid || "").match(/(\d+)$/);
+    if (!match) {
+      return currentMax;
+    }
+    return Math.max(currentMax, Number(match[1]));
+  }, 0);
+  return `${prefix}-${String(maxSequence + 1).padStart(6, "0")}`;
 }
 
 function normalizePatient(patient) {

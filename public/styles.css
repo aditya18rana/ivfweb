@@ -591,8 +591,8 @@ legend {
 }
 
 .avatar-image {
-  width: 94px;
-  height: 94px;
+  width: 114px;
+  height: 114px;
   object-fit: cover;
   border-radius: 999px;
   box-shadow: 0 10px 22px rgba(43, 105, 128, 0.12);
@@ -749,11 +749,35 @@ legend {
   gap: 1.1rem;
 }
 
+.timeline-scroll-list {
+  max-height: 520px;
+  overflow-y: auto;
+  padding-right: 0.35rem;
+}
+
+.timeline-scroll-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.timeline-scroll-list::-webkit-scrollbar-thumb {
+  background: rgba(161, 176, 204, 0.9);
+  border-radius: 999px;
+}
+
+.timeline-scroll-list::-webkit-scrollbar-track {
+  background: rgba(238, 243, 255, 0.8);
+  border-radius: 999px;
+}
+
 .his-time-item {
   border-left: 2px solid #29c2bb;
   background: transparent;
   border-radius: 0;
   padding-left: 1rem;
+}
+
+.timeline-created {
+  border-left-color: #7f6bc9;
 }
 
 .hero-strip {
@@ -868,6 +892,30 @@ legend {
 .patient-list {
   display: grid;
   gap: 0.8rem;
+}
+
+.card-scroll-list {
+  max-height: 360px;
+  overflow-y: auto;
+  padding-right: 0.35rem;
+}
+
+.short-scroll-list {
+  max-height: 220px;
+}
+
+.card-scroll-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.card-scroll-list::-webkit-scrollbar-thumb {
+  background: rgba(161, 176, 204, 0.9);
+  border-radius: 999px;
+}
+
+.card-scroll-list::-webkit-scrollbar-track {
+  background: rgba(238, 243, 255, 0.8);
+  border-radius: 999px;
 }
 
 .timeline-item {
