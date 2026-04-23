@@ -4,7 +4,8 @@ const state = {
   selectedPatient: null,
   dashboard: null,
   activity: [],
-  activeView: "home"
+  activeView: "home",
+  enquiryFilter: ""
 };
 
 const clinicTitle = document.getElementById("clinicTitle");
@@ -20,6 +21,10 @@ const homePatientStatus = document.getElementById("homePatientStatus");
 const globalSearch = document.getElementById("globalSearch");
 const searchBtn = document.getElementById("searchBtn");
 const searchSuggestions = document.getElementById("searchSuggestions");
+const togglePatientFilters = document.getElementById("togglePatientFilters");
+const patientFilterBar = document.getElementById("patientFilterBar");
+const patientEnquiryFilter = document.getElementById("patientEnquiryFilter");
+const clearPatientFilters = document.getElementById("clearPatientFilters");
 const statTotal = document.getElementById("statTotal");
 const statToday = document.getElementById("statToday");
 const statFollowups = document.getElementById("statFollowups");
@@ -96,6 +101,25 @@ const INDIA_STATE_CITY_MAP = {
   Lakshadweep: ["Kavaratti"],
   Puducherry: ["Puducherry", "Karaikal", "Mahe", "Yanam"]
 };
+
+function getProfileCutout(type) {
+  if (type === "partner") {
+    return `
+      <svg class="avatar-cutout" viewBox="0 0 120 120" aria-hidden="true">
+        <circle cx="60" cy="34" r="20" fill="#4f7f96"></circle>
+        <path d="M32 102c4-22 17-34 28-34s24 12 28 34" fill="#4f7f96"></path>
+        <path d="M44 61h32v10H44z" fill="#7fa0b1"></path>
+      </svg>
+    `;
+  }
+
+  return `
+    <svg class="avatar-cutout" viewBox="0 0 120 120" aria-hidden="true">
+      <circle cx="60" cy="31" r="18" fill="#5c8da6"></circle>
+      <path d="M38 103c5-18 14-30 22-34l-8-8-6 5-6-9c7-9 15-13 26-13 10 0 19 4 26 13l-6 9-6-5-8 8c8 4 17 16 22 34" fill="#5c8da6"></path>
+    </svg>
+  `;
+}
 
 function setActiveView(view) {
   state.activeView = view;
@@ -324,14 +348,14 @@ function buildEmptyPatientViewMarkup() {
         <div class="his-profile-strip">
           <div class="his-avatar-card">
             <div class="his-avatar-frame placeholder-frame">
-              <span>PT</span>
+              ${getProfileCutout("patient")}
             </div>
             <strong>Patient Name</strong>
             <small>(Age: --)</small>
           </div>
           <div class="his-avatar-card">
             <div class="his-avatar-frame partner placeholder-frame">
-              <span>PR</span>
+              ${getProfileCutout("partner")}
             </div>
             <strong>Partner Detail</strong>
             <small>(Age: --)</small>
@@ -421,14 +445,14 @@ function buildPatientViewMarkup(patient) {
         <div class="his-profile-strip">
           <div class="his-avatar-card">
             <div class="his-avatar-frame">
-              <span>${getInitials(patient.patientName)}</span>
+              ${getProfileCutout("patient")}
             </div>
             <strong>${escapeHtml(patient.patientName)}</strong>
             <small>(Age: ${escapeHtml(patient.age || "-")})</small>
           </div>
           <div class="his-avatar-card">
             <div class="his-avatar-frame partner">
-              <span>${getInitials(patient.partnerName || "P")}</span>
+              ${getProfileCutout("partner")}
             </div>
             <strong>${escapeHtml(patient.partnerName || "Partner Detail")}</strong>
             <small>(Age: ${escapeHtml(patient.partnerAge || "-")})</small>
@@ -632,7 +656,12 @@ async function openPatient(id) {
 async function loadPatients(query = "", options = {}) {
   const { autoSelectFirst = false } = options;
   const data = await api(`/api/patients?q=${encodeURIComponent(query)}`);
-  state.patients = data.patients;
+  state.patients = (data.patients || []).filter((patient) => {
+    if (!state.enquiryFilter) {
+      return true;
+    }
+    return patient.enquirySource === state.enquiryFilter;
+  });
   if (state.selectedPatient) {
     const updated = state.patients.find((patient) => patient.id === state.selectedPatient.id);
     if (updated) {
@@ -718,7 +747,19 @@ patientDobInput?.addEventListener("input", syncAgeFields);
 partnerDobInput?.addEventListener("change", syncAgeFields);
 partnerDobInput?.addEventListener("input", syncAgeFields);
 previousChildrenInput?.addEventListener("change", syncChildFields);
-  stateInput?.addEventListener("change", syncCityOptions);
+stateInput?.addEventListener("change", syncCityOptions);
+togglePatientFilters?.addEventListener("click", () => {
+  patientFilterBar.classList.toggle("hidden");
+});
+patientEnquiryFilter?.addEventListener("change", async () => {
+  state.enquiryFilter = patientEnquiryFilter.value;
+  await loadPatients(globalSearch.value.trim(), { autoSelectFirst: false });
+});
+clearPatientFilters?.addEventListener("click", async () => {
+  state.enquiryFilter = "";
+  patientEnquiryFilter.value = "";
+  await loadPatients(globalSearch.value.trim(), { autoSelectFirst: false });
+});
 homeCreateAction?.addEventListener("click", () => setActiveView("create"));
 homePatientsAction?.addEventListener("click", async () => {
   setActiveView("patients");

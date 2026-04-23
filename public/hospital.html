@@ -298,6 +298,28 @@
                   <p class="eyebrow">Patient Search</p>
                   <h3>Patient List</h3>
                 </div>
+                <div class="list-toolbar">
+                  <button id="togglePatientFilters" class="secondary-btn compact-btn" type="button">
+                    Filter
+                  </button>
+                </div>
+              </div>
+              <div id="patientFilterBar" class="patient-filter-bar hidden">
+                <label class="filter-field">
+                  Enquiry Source
+                  <select id="patientEnquiryFilter">
+                    <option value="">All Sources</option>
+                    <option value="Walk-in">Walk-in</option>
+                    <option value="Online">Online</option>
+                    <option value="Doctor Referral">Doctor Referral</option>
+                    <option value="Newspaper">Newspaper</option>
+                    <option value="Social Media">Social Media</option>
+                    <option value="Existing Patient Reference">Existing Patient Reference</option>
+                  </select>
+                </label>
+                <button id="clearPatientFilters" class="secondary-btn compact-btn" type="button">
+                  Clear
+                </button>
               </div>
               <div id="patientList" class="patient-list"></div>
             </div>
