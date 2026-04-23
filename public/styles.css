@@ -615,6 +615,7 @@ legend {
 .his-avatar-card small {
   color: #af6276;
   margin-top: 0.3rem;
+  font-weight: bold;
 }
 
 .his-summary {
